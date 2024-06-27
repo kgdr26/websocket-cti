@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Data</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            background: #fff;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="data-list"></ul>
+    <script>
+        const socket = io();
+
+        socket.on('data', (data) => {
+            const dataList = document.getElementById('data-list');
+            dataList.innerHTML = '';
+            data.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                dataList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>
